@@ -2,14 +2,14 @@
 mod posix;
 #[cfg(not(target_os = "windows"))]
 pub use posix::Clipboard;
-pub type Result<T, E = ClipboardError> = std::result::Result<T, E>;
+pub type Result<T, E = Error> = std::result::Result<T, E>;
 
 // Implement windows someday, wouldja?
 
 use std::string::FromUtf8Error;
 
 #[derive(Clone, Debug, thiserror::Error)]
-pub enum ClipboardError {
+pub enum Error {
     #[error("unable to initialize clipboard")]
     Init,
 
@@ -20,15 +20,15 @@ pub enum ClipboardError {
     X11Init,
 }
 
-impl From<FromUtf8Error> for ClipboardError {
+impl From<FromUtf8Error> for Error {
     fn from(_: FromUtf8Error) -> Self {
-        ClipboardError::BadUtf8
+        Error::BadUtf8
     }
 }
 
-impl From<x11_clipboard::error::Error> for ClipboardError {
+impl From<x11_clipboard::error::Error> for Error {
     fn from(_: x11_clipboard::error::Error) -> Self {
-        ClipboardError::X11Init
+        Error::X11Init
     }
 }
 
