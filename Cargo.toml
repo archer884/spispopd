@@ -1,0 +1,28 @@
+[package]
+name = "spispopd"
+version = "0.1.0"
+edition = "2021"
+license = "Unlicense"
+readme = "README.md"
+description = """
+Listen up, ID Software!
+
+Next time you have an impending release of a much anticipated
+game, make sure its name is not so cool-sounding as DOOM and much
+longer to eliminate all of the casual "Where can I get xxx" posts.
+How about "Smashing Pumpkins Into Small Piles Of Putrid Debris" for
+the next game?
+
+https://www.youtube.com/channel/UCJ8V9aiz50m6NVn0ix5v8RQ
+"""
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+thiserror = "1.0.31"
+
+[target.'cfg(target_os="windows")'.dependencies]
+clipboard-win = "4.0.3"
+
+[target.'cfg(not(target_os="windows"))'.dependencies]
+x11-clipboard = "0.5.3"
